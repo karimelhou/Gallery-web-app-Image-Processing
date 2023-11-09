@@ -1,0 +1,110 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+
+<div class="row">   
+
+    <div class="col-lg-12">
+        <h1 class="page-header">Photos</h1>
+    </div>
+
+   {% if not session.logged_in %}
+    <form action="/galleries/album/{{gallery_name}}/upload" method="post" enctype="multipart/form-data">
+    <div><strong></strong></div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="file" name="file" class="form-control" placeholder="Upload photo" accept="image/jpeg">
+                <input type="hidden" name="galleryName" value="{{gallery_name}}">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Upload</button>
+                </span>
+                </div><!-- /input-group -->
+
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+    </form>
+    {% endif %}
+    <hr >
+
+    {% if photos is defined %}
+    {% set counter = 0 %}
+    <div class="row">  
+        {% for photo in photos %}
+            {% if counter != 0 and counter % 4 == 0 %}
+                </div><div class="row"> 
+            {% endif %}
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                {% if session['type'] == 'admin' or true %}
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)" data-galleryname="{{ gallery_name }}" data-photoname="{{ photo.name }}" id="deletePhotobtn">Delete Photo</a></li>
+                            <li><a href="javascript:void(0)" data-galleryname="{{ gallery_name }}" data-photoname="{{ photo.name }}" class="calculateImageProperties">Calculate</a></li>
+                            <li><a href="javascript:void(0)" data-galleryname="{{ gallery_name }}" data-photoname="{{ photo.name }}" class="viewImageProperties">View Results</a></li>
+                        </ul>                    
+                    </div> <!-- End Dropdown action -->
+                {% endif %} <!-- This endif corresponds to the if checking the session type -->
+
+                {% if photo.calculated %}
+                    <span class="processed-indicator">Calculated</span>
+                {% else %}
+                    <span class="processed-indicator">Not Calculated</span>
+                {% endif %} 
+                
+                <a class="thumbnail" href="javascript:void(0)" id="popImage" data-imgsrc="{{ full_image_path }}{{ photo.name }}">
+                    <img src="{{ full_image_path }}{{ photo.name }}" class="img-responsive">
+                </a>
+                
+            </div>
+            {% set counter = counter + 1 %}
+        {% endfor %}
+    </div> 
+{% else %}
+    <div class="col-lg-3"><p class="alert alert-info">No Photos Found</p></div>
+{% endif %}
+
+
+</div> <!-- End row -->
+
+
+
+<!-- Modal for Image Preview -->
+<div id="imagemodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src="" id="imagepreview" class="img-responsive">
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal for Plot Preview -->
+<div id="plotmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg  modal-content d-flex justify-content-center align-items-center">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body"> 
+                <div id="histograms_plot"></div>
+                <p class="plot-description">Histograms: Display the distribution of pixel intensity values for each color channel in the image.</p>
+                
+                <div id="color_moments_plot"></div>
+                <p class="plot-description">Color Moments: Visualize the color characteristics of the image, including its mean, standard deviation, and skewness for each channel.</p>
+                
+                <div id="dominant_colors_display"></div>
+                <p class="plot-description">Dominant Colors: Highlight the primary colors present in the image based on k-means clustering in LAB color space.</p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+  
+{% endblock %}

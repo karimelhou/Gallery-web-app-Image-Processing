@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Image Gallery</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/signin.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/thumbnail-gallery.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+
+
+    <!-- Additional styles -->
+    <style>
+        /* Gradient background for entire page */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #f5f7fa, #e2e8f0);
+        }
+        
+       
+        .navbar {
+            margin: 0;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            border-bottom: 2px solid #e7e7e7;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow for depth */
+        }
+        
+        .navbar-brand, .nav>li>a {
+            color: #333 !important;
+            font-weight: 500;
+        }
+        
+        
+        .thumb {
+            border: 1px solid #e7e7e7;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            box-sizing: border-box; 
+            transition: box-shadow 0.3s;
+        }
+        
+        .thumb:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .col-md-4, .col-lg-4, .col-sm-6 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+       
+        .footer {
+            background-color: #333; 
+            padding: 20px 0;
+            color: #f5f7fa; 
+            margin: 0;
+
+        }
+        
+        /* Plot description tweaks for better readability */
+        .plot-description {
+            background-color: rgba(0, 0, 0, 0.03); /* Light grayish background */
+            padding: 10px;
+            font-style: italic;
+            border-radius: 3px; 
+        }
+               
+        .thumb .image-container {
+            border: 1px solid #e7e7e7;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .thumb .image-container:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .thumb img {
+            height: 350px;
+            width: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .gallery-thumb .thumbnail img {
+            width: 250px;
+            height: 250px; 
+           
+        }
+        
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse " role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Image Gallery</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            {% if session %}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ url_for('galleries') }}">Gallery</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{{ url_for('do_logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+        {% block body %}{% endblock %}
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                </div>
+            </div>
+        </footer>
+    </div> <!-- /container -->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url_for('static', filename='js/myscript.js') }}"></script>
+</body>
+
+<footer class="footer">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <span> &copy; ELHoumaini Karim | ELKhaoua Issa </span>
+        </div>
+    </div>
+</footer>
+
+
+</html>

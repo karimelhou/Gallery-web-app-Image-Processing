@@ -1,0 +1,37 @@
+{% extends '_layout.html' %}
+
+{% block body %}
+<div id="loginContainer">
+    <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="loginUsername" class="sr-only">Username</label>
+        <input type="text" id="loginUsername" class="form-control" placeholder="Username" required autofocus>
+        <label for="loginPassword" class="sr-only">Password</label>
+        <input type="password" id="loginPassword" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" id="loginbtn" type="button">Sign in</button>
+        <input type="hidden" id="nextURL" class="form-control" value="galleries">
+        <div id="loginLoader" class="text-center"></div>
+        <button class="btn btn-lg btn-secondary btn-block" id="showRegistrationForm">Register</button>
+
+    </form>
+</div>
+
+<div id="registrationContainer" style="display:none;">
+    <form id="registrationForm" class="form-signin">
+        <h2 class="form-signin-heading">Please Register</h2>
+        <label for="registerUsername" class="sr-only">Username</label>
+        <input type="text" id="registerUsername" class="form-control" placeholder="Username" required autofocus>
+        <label for="registerPassword" class="sr-only">Password</label>
+        <input type="password" id="registerPassword" class="form-control" placeholder="Password" required>
+        <label for="registerType" class="sr-only">User Type</label>
+        <select id="registerType" class="form-control">
+            <option value="normal">Normal</option>
+            <option value="admin">Admin</option>
+        </select>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <div id="registrationLoader" class="text-center"></div>
+        <button class="btn btn-lg btn-secondary btn-block" id="showLoginForm">Login</button>
+
+    </form>
+</div>
+{% endblock %}
