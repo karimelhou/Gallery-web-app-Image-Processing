@@ -9,4 +9,4 @@ A comprehensive web application that combines an image gallery platform with an 
 - Interactive front-end to display numerical data and graphical plots for image analysis.
 - REST API integration for processing and retrieving image properties.
 
-This application is perfect for photographers, designers, and anyone interested in the detailed analysis of image properties.
+This application is perfect for Image processors, Scientists, photographers, designers, and anyone interested in the detailed analysis of image properties.
